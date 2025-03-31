@@ -1,0 +1,83 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+h1 {
+    color: #8b0000;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.map-container {
+    position: relative;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+#pup-map-img {
+    width: 100%;
+    height: auto;
+    border: 2px solid #8b0000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Highlight effect for map areas */
+.highlight-area {
+    position: absolute;
+    border: 3px solid red;
+    pointer-events: none;
+    z-index: 10;
+    border-radius: 50%;
+    opacity: 0.8;
+    display: none;
+    transform: translate(-50%, -50%); /* Center the highlight on the point */
+}
+
+/* Modal/Scenery Box Styling */
+#scenery-box {
+    position: absolute;
+    background-color: white;
+    border: 2px solid #8b0000;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    max-width: 300px;
+    display: none;
+}
+
+#scenery-box img {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#scenery-box h3 {
+    color: #8b0000;
+    margin-top: 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+#scenery-box p {
+    margin: 0;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+.map-instruction {
+    text-align: center;
+    margin: 10px 0 20px;
+    color: #555;
+    font-style: italic;
+}

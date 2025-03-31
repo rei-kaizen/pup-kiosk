@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUP KIOSK - Interactive Campus Map</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        h1 {
+            color: #8b0000;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .map-container {
+            position: relative;
+            margin: 0 auto;
+            max-width: 100%;
+        }
+        
+        #pup-map-img {
+            width: 100%;
+            height: auto;
+            border: 2px solid #8b0000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Highlight effect for map areas */
+        .highlight-area {
+            position: absolute;
+            border: 3px solid red;
+            pointer-events: none;
+            z-index: 10;
+            border-radius: 50%;
+            opacity: 0.8;
+            display: none;
+        }
+        
+        /* Modal/Scenery Box Styling */
+        #scenery-box {
+            position: absolute;
+            background-color: white;
+            border: 2px solid #8b0000;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            max-width: 300px;
+            display: none;
+        }
+        
+        #scenery-box img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        #scenery-box h3 {
+            color: #8b0000;
+            margin-top: 0;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        
+        #scenery-box p {
+            margin: 0;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+        
+        .map-instruction {
+            text-align: center;
+            margin: 10px 0 20px;
+            color: #555;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PUP KIOSK - Interactive Campus Map</h1>
+        
+        <div class="map-instruction">
+            Hover over numbered locations to learn more about campus landmarks
+        </div>
+        
+        <div class="map-container">
+            <!-- Main map image -->
+            <img src="pup-map.jpg" alt="PUP Vicinity Map" id="pup-map-img" usemap="#pup-map">
+            
+            <!-- Highlight element -->
+            <div id="highlight-element" class="highlight-area"></div>
+            
+            <!-- Map areas -->
+            <map name="pup-map">
+                <!-- Area 1: The Pylon -->
+                <area shape="circle" coords="1085,575,20" href="#" alt="The Pylon" title="The Pylon"
+                      onmouseover="activateArea(1, 'circle', [1085,575,20]);" 
+                      onmouseout="deactivateArea();">
+                
+                <!-- Area 2: The Mural -->
+                <area shape="circle" coords="1030,602,20" href="#" alt="The Mural" title="The Mural"
+                      onmouseover="activateArea(2, 'circle', [1030,602,20]);" 
+                      onmouseout="deactivateArea();">
+                
+                <!-- Area 3: Visitor's Lounge -->
+                <area shape="circle" coords="1045,535,20" href="#" alt="Visitor's Lounge" title="Visitor's Lounge"
+                      onmouseover="activateArea(3, 'circle', [1045,535,20]);" 
+                      onmouseout="deactivateArea();">
+                       
+                <!-- Area 4: Open Court -->
+                <area shape="rect" coords="800,500,900,600" href="#" alt="Open Court" title="Open Court"
+                      onmouseover="activateArea(4, 'rect', [800,500,900,600]);" 
+                      onmouseout="deactivateArea();">
+                      
+                <!-- Area 5: The Sports Complex -->
+                <area shape="rect" coords="700,400,800,500" href="#" alt="Law Tennis Court" title="Law Tennis Court"
+                      onmouseover="activateArea(5, 'rect', [700,400,800,500]);" 
+                      onmouseout="deactivateArea();">
+                      
+                <!-- Area 6: The Basketball Court -->
+                <area shape="rect" coords="" href="#" alt="Basketball Court" title="Basketball Court"
+                      onmouseover="activateArea(6, 'rect', []);" 
+                      onmouseout="deactivateArea();">
+                        
+                <!-- Area 7: The Souvenir Shop -->
+                <area shape="rect" coords="500,200,600,300" href="#" alt="Souvenir Shop" title="Souvenir Shop"
+                      onmouseover="activateArea(7, 'rect', [500,200,600,300]);" 
+                      onmouseout="deactivateArea();">
+                        
+                <!-- Area 8: The Mabini Shrine -->
+                <area shape="rect" coords="400,100,500,200" href="#" alt="Mabini Shrine" title="Mabini Shrine"
+                      onmouseover="activateArea(8, 'rect', [400,100,500,200]);" 
+                      onmouseout="deactivateArea();">
+                      
+                <!-- Area 9: The Mabini Museum -->
+                <area shape="rect" coords="300,0,400,100" href="#" alt="Mabini Museum" title="Mabini Museum"
+                      onmouseover="activateArea(9, 'rect', [300,0,400,100]);" 
+                      onmouseout="deactivateArea();">
+                      
+                <!-- Area 10: The Obelisk -->
+                <area shape="rect" coords="600,300,700,400" href="#" alt="Obelisk" title="Obelisk"
+                      onmouseover="activateArea(10, 'rect', [600,300,700,400]);" 
+                      onmouseout="deactivateArea();">
+                      
+                <!-- More areas can be added following the same pattern -->
+            </map>
+            
+            <!-- Modal/Scenery Box -->
+            <div id="scenery-box">
+                <img id="scenery-img" src="" alt="Area Image">
+                <h3 id="scenery-heading"></h3>
+                <p id="scenery-description"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Area data - stores information for each area
+        const areaData = {
+            1: {
+                imgSource: "images/pylon.jpg",
+                heading: "The Pylon",
+                description: "The Pylon originally stood for the true, the good, and the beautiful. It is one of the most iconic landmarks of PUP, symbolizing the university's commitment to excellence and values."
+            },
+            2: {
+                imgSource: "images/mural.jpg",
+                heading: "The Mural",
+                description: "The Mural is a cut and welded brass mural relief (2.5 x 9.3 meters) built by national artist Eduardo Castrillo in 1974. It represents the struggles and achievements of the Filipino people."
+            },
+            3: {
+                imgSource: "images/lounge.jpg",
+                heading: "Visitor's Lounge",
+                description: "The Visitor's Lounge serves as a reception area for campus guests and provides a comfortable space for waiting and small meetings."
+            },
+            4: {
+                imgSource: "images/open-court.jpg",
+                heading: "Open Court",
+                description: "The Open Court is a versatile space used for various university events, sports activities, and student gatherings, promoting camaraderie and physical fitness among students."
+            },
+            5: {
+                imgSource: "images/tennis-court.jpg",
+                heading: "Law Tennis Court",
+                description: "The Law Tennis Court provides a dedicated space for students, faculty, and staff to engage in recreational and competitive tennis matches, supporting a healthy and active lifestyle."
+            },
+            6: {
+                imgSource: "images/basketball-court.jpg",
+                heading: "Basketball Court",
+                description: "A popular hub for student-athletes and sports enthusiasts, the Basketball Court hosts intramural games, varsity training, and casual play, fostering school spirit and teamwork."
+            },
+            7: {
+                imgSource: "images/souvenir-shop.jpg",
+                heading: "Souvenir Shop",
+                description: "The Souvenir Shop offers a variety of PUP merchandise, including shirts, accessories, and memorabilia, allowing students and visitors to take home a piece of the university's identity."
+            },
+            8: {
+                imgSource: "images/mabini-shrine.jpg",
+                heading: "Mabini Shrine",
+                description: "The Mabini Shrine honors Apolinario Mabini, the 'Brains of the Revolution.' It serves as a historical site where visitors can learn about his contributions to Philippine independence."
+            },
+            9: {
+                imgSource: "images/mabini-museum.jpg",
+                heading: "Mabini Museum",
+                description: "Located within the PUP campus, the Mabini Museum houses artifacts, writings, and memorabilia related to Apolinario Mabini, preserving his legacy and influence on Philippine history."
+            },
+            10: {
+                imgSource: "images/obelisk.jpg",
+                heading: "Obelisk",
+                description: "The Obelisk stands as a symbol of PUP's enduring legacy and mission of providing quality education. It represents strength, knowledge, and the university’s commitment to national development."
+            },
+        };
+        // Function to show the scenery box with area information
+        function showSceneryBox(imgSource, heading, description) {
+            const sceneryBox = document.getElementById('scenery-box');
+            const sceneryImg = document.getElementById('scenery-img');
+            const sceneryHeading = document.getElementById('scenery-heading');
+            const sceneryDescription = document.getElementById('scenery-description');
+            
+            // Set content
+            sceneryImg.src = imgSource;
+            sceneryHeading.textContent = heading;
+            sceneryDescription.textContent = description;
+            
+            // Display the box
+            sceneryBox.style.display = 'block';
+        }
+        
+        // Function to align the scenery box near the cursor/area
+        function alignSceneryBox(x, y) {
+            const sceneryBox = document.getElementById('scenery-box');
+            const mapContainer = document.querySelector('.map-container');
+            const containerRect = mapContainer.getBoundingClientRect();
+            
+            // Calculate position (adjust these values based on testing)
+            const offsetX = 20; // Distance from cursor/highlight
+            const offsetY = 10;
+            
+            // Position relative to the map container
+            let posX = x + offsetX;
+            let posY = y - offsetY;
+            
+            // Make sure the box doesn't go off-screen
+            const boxWidth = sceneryBox.offsetWidth;
+            const boxHeight = sceneryBox.offsetHeight;
+            
+            if (posX + boxWidth > containerRect.width) {
+                posX = x - boxWidth - offsetX; // Position to the left if not enough space on the right
+            }
+            
+            if (posY + boxHeight > containerRect.height) {
+                posY = containerRect.height - boxHeight - 10; // Keep it within the container
+            }
+            
+            if (posY < 0) {
+                posY = 10; // Don't go above the top
+            }
+            
+            // Set the position
+            sceneryBox.style.left = posX + 'px';
+            sceneryBox.style.top = posY + 'px';
+        }
+        
+        // Function to remove/hide the scenery box
+        function removeSceneryBox() {
+            const sceneryBox = document.getElementById('scenery-box');
+            sceneryBox.style.display = 'none';
+        }
+        
+        // Function to show highlight around a map area
+        function showHighlight(shapeType, coords) {
+            const highlightEl = document.getElementById('highlight-element');
+            const mapImg = document.getElementById('pup-map-img');
+            const mapRect = mapImg.getBoundingClientRect();
+            const imgWidth = mapImg.width;
+            const imgHeight = mapImg.height;
+            
+            // For a circle
+            if (shapeType === 'circle') {
+                const [centerX, centerY, radius] = coords;
+                
+                // Calculate scale factor for responsive design
+                const scaleX = imgWidth / mapImg.naturalWidth;
+                const scaleY = imgHeight / mapImg.naturalHeight;
+                
+                // Apply scale
+                const scaledX = centerX * scaleX;
+                const scaledY = centerY * scaleY;
+                const scaledRadius = radius * scaleX; // Using scaleX for simplicity
+                
+                // Position and size the highlight
+                highlightEl.style.left = (scaledX - scaledRadius) + 'px';
+                highlightEl.style.top = (scaledY - scaledRadius) + 'px';
+                highlightEl.style.width = (scaledRadius * 2) + 'px';
+                highlightEl.style.height = (scaledRadius * 2) + 'px';
+                highlightEl.style.display = 'block';
+                
+                // Return center coordinates for positioning the info box
+                return [scaledX, scaledY];
+            }
+            // Add support for other shapes (rect, poly) if needed
+            
+            return [0, 0]; // Default return
+        }
+        
+        // Function to hide the highlight
+        function hideHighlight() {
+            const highlightEl = document.getElementById('highlight-element');
+            highlightEl.style.display = 'none';
+        }
+        
+        // Function to activate an area (show highlight and info)
+        function activateArea(areaId, shapeType, coords) {
+            // Show highlight
+            const [centerX, centerY] = showHighlight(shapeType, coords);
+            
+            // Get area data
+            const area = areaData[areaId];
+            if (area) {
+                // Show scenery box
+                showSceneryBox(area.imgSource, area.heading, area.description);
+                
+                // Align the box
+                alignSceneryBox(centerX, centerY);
+            }
+        }
+        
+        // Function to deactivate an area
+        function deactivateArea() {
+            hideHighlight();
+            removeSceneryBox();
+        }
+        
+        // Add event listener to handle image loading
+        window.addEventListener('load', function() {
+            // You can add initialization code here if needed
+            console.log('PUP KIOSK application loaded successfully!');
+        });
+    </script>
+</body>
+</html>

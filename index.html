@@ -46,6 +46,7 @@
             border-radius: 50%;
             opacity: 0.8;
             display: none;
+            transform: translate(-50%, -50%); /* Center the highlight on the point */
         }
         
         /* Modal/Scenery Box Styling */
@@ -104,59 +105,59 @@
             <!-- Highlight element -->
             <div id="highlight-element" class="highlight-area"></div>
             
-            <!-- Map areas -->
+            <!-- Map areas - coordinates adjusted to match actual numbers on map -->
             <map name="pup-map">
                 <!-- Area 1: The Pylon -->
-                <area shape="circle" coords="1085,575,20" href="#" alt="The Pylon" title="The Pylon"
-                      onmouseover="activateArea(1, 'circle', [1085,575,20]);" 
+                <area shape="circle" coords="890,450,20" href="#" alt="The Pylon" title="The Pylon"
+                      onmouseover="activateArea(1, 'circle', [1095,590,20]);" 
                       onmouseout="deactivateArea();">
                 
                 <!-- Area 2: The Mural -->
-                <area shape="circle" coords="1030,602,20" href="#" alt="The Mural" title="The Mural"
-                      onmouseover="activateArea(2, 'circle', [1030,602,20]);" 
+                <area shape="circle" coords="820,470,20" href="#" alt="The Mural" title="The Mural"
+                      onmouseover="activateArea(2, 'circle', [1030,600,20]);" 
                       onmouseout="deactivateArea();">
                 
                 <!-- Area 3: Visitor's Lounge -->
-                <area shape="circle" coords="1045,535,20" href="#" alt="Visitor's Lounge" title="Visitor's Lounge"
-                      onmouseover="activateArea(3, 'circle', [1045,535,20]);" 
+                <area shape="circle" coords="820,440,20" href="#" alt="Visitor's Lounge" title="Visitor's Lounge"
+                      onmouseover="activateArea(3, 'circle', [1040,540,20]);" 
                       onmouseout="deactivateArea();">
                        
-                <!-- Area 4: Open Court -->
-                <area shape="rect" coords="800,500,900,600" href="#" alt="Open Court" title="Open Court"
-                      onmouseover="activateArea(4, 'rect', [800,500,900,600]);" 
+                <!-- Area 4: Open Court - Fixed coordinates -->
+                <area shape="circle" coords="890,400,20" href="#" alt="Open Court" title="Open Court"
+                      onmouseover="activateArea(4, 'circle', [1090,510,20]);" 
                       onmouseout="deactivateArea();">
-                      
-                <!-- Area 5: The Sports Complex -->
-                <area shape="rect" coords="700,400,800,500" href="#" alt="Law Tennis Court" title="Law Tennis Court"
-                      onmouseover="activateArea(5, 'rect', [700,400,800,500]);" 
+                
+                <!-- Area 5: Law Tennis Court -->
+                <area shape="circle" coords="820,370,20" href="#" alt="Law Tennis Court" title="Law Tennis Court"
+                      onmouseover="activateArea(5, 'circle', [995,470,20]);" 
                       onmouseout="deactivateArea();">
                       
                 <!-- Area 6: The Basketball Court -->
-                <area shape="rect" coords="" href="#" alt="Basketball Court" title="Basketball Court"
-                      onmouseover="activateArea(6, 'rect', []);" 
+                <area shape="circle" coords="740,315,20" href="#" alt="Basketball Court" title="Basketball Court"
+                      onmouseover="activateArea(6, 'circle', [910,420,15]);" 
                       onmouseout="deactivateArea();">
                         
                 <!-- Area 7: The Souvenir Shop -->
-                <area shape="rect" coords="500,200,600,300" href="#" alt="Souvenir Shop" title="Souvenir Shop"
-                      onmouseover="activateArea(7, 'rect', [500,200,600,300]);" 
+                <area shape="circle" coords="650,370,20" href="#" alt="Souvenir Shop" title="Souvenir Shop"
+                      onmouseover="activateArea(7, 'circle', [795,475,20]);" 
                       onmouseout="deactivateArea();">
                         
                 <!-- Area 8: The Mabini Shrine -->
-                <area shape="rect" coords="400,100,500,200" href="#" alt="Mabini Shrine" title="Mabini Shrine"
-                      onmouseover="activateArea(8, 'rect', [400,100,500,200]);" 
+                <area shape="circle" coords="585,330,20" href="#" alt="Mabini Shrine" title="Mabini Shrine"
+                      onmouseover="activateArea(8, 'circle', [715,430,20]);" 
                       onmouseout="deactivateArea();">
                       
                 <!-- Area 9: The Mabini Museum -->
-                <area shape="rect" coords="300,0,400,100" href="#" alt="Mabini Museum" title="Mabini Museum"
-                      onmouseover="activateArea(9, 'rect', [300,0,400,100]);" 
+                <area shape="circle" coords="535,340,20" href="#" alt="Mabini Museum" title="Mabini Museum"
+                      onmouseover="activateArea(9, 'circle', [645,430,20]);" 
                       onmouseout="deactivateArea();">
                       
                 <!-- Area 10: The Obelisk -->
-                <area shape="rect" coords="600,300,700,400" href="#" alt="Obelisk" title="Obelisk"
-                      onmouseover="activateArea(10, 'rect', [600,300,700,400]);" 
+                <area shape="circle" coords="590,325,20" href="#" alt="Obelisk" title="Obelisk"
+                      onmouseover="activateArea(10, 'circle', [750,390,20]);" 
                       onmouseout="deactivateArea();">
                       
-                <!-- More areas can be added following the same pattern -->
+                      
             </map>
             
             <!-- Modal/Scenery Box -->
@@ -219,9 +220,10 @@
             10: {
                 imgSource: "images/obelisk.jpg",
                 heading: "Obelisk",
-                description: "The Obelisk stands as a symbol of PUP's enduring legacy and mission of providing quality education. It represents strength, knowledge, and the university’s commitment to national development."
+                description: "The Obelisk stands as a symbol of PUP's enduring legacy and mission of providing quality education. It represents strength, knowledge, and the university's commitment to national development."
             },
         };
+        
         // Function to show the scenery box with area information
         function showSceneryBox(imgSource, heading, description) {
             const sceneryBox = document.getElementById('scenery-box');
@@ -245,8 +247,8 @@
             const containerRect = mapContainer.getBoundingClientRect();
             
             // Calculate position (adjust these values based on testing)
-            const offsetX = 20; // Distance from cursor/highlight
-            const offsetY = 10;
+            const offsetX = 30; // Increased distance from cursor/highlight
+            const offsetY = 20; // Increased offset
             
             // Position relative to the map container
             let posX = x + offsetX;
@@ -279,7 +281,7 @@
             sceneryBox.style.display = 'none';
         }
         
-        // Function to show highlight around a map area
+        // Improved function to show highlight around a map area
         function showHighlight(shapeType, coords) {
             const highlightEl = document.getElementById('highlight-element');
             const mapImg = document.getElementById('pup-map-img');
@@ -300,9 +302,9 @@
                 const scaledY = centerY * scaleY;
                 const scaledRadius = radius * scaleX; // Using scaleX for simplicity
                 
-                // Position and size the highlight
-                highlightEl.style.left = (scaledX - scaledRadius) + 'px';
-                highlightEl.style.top = (scaledY - scaledRadius) + 'px';
+                // Position and size the highlight - using transform to center it
+                highlightEl.style.left = scaledX + 'px';
+                highlightEl.style.top = scaledY + 'px';
                 highlightEl.style.width = (scaledRadius * 2) + 'px';
                 highlightEl.style.height = (scaledRadius * 2) + 'px';
                 highlightEl.style.display = 'block';
@@ -347,6 +349,12 @@
         window.addEventListener('load', function() {
             // You can add initialization code here if needed
             console.log('PUP KIOSK application loaded successfully!');
+            
+            // Get the natural dimensions of the map image for scaling calculations
+            const mapImg = document.getElementById('pup-map-img');
+            mapImg.onload = function() {
+                console.log(`Map natural dimensions: ${mapImg.naturalWidth} x ${mapImg.naturalHeight}`);
+            };
         });
     </script>
 </body>
